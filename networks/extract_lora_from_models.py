@@ -198,7 +198,7 @@ def svd(args):
     if not args.no_metadata:
         title = os.path.splitext(os.path.basename(args.save_to))[0]
         sai_metadata = sai_model_spec.build_metadata(
-            None, args.v2, args.v_parameterization, False, True, False, time.time(), title=title
+            None, args.v2, args.v_parameterization, args.sdxl, True, False, time.time(), title=title
         )
         metadata.update(sai_metadata)
 
@@ -252,13 +252,13 @@ def setup_parser() -> argparse.ArgumentParser:
         "--clamp_quantile",
         type=float,
         default=1,
-        help="Quantile clamping value, float, (0-1). Defailt = 1",
+        help="Quantile clamping value, float, (0-1). Default = 1",
     )
     parser.add_argument(
         "--min_diff",
         type=float,
         default=1,
-        help="Minimum difference betwen finetuned model and base to consider them different enough to extract, float, (0-1). Defailt = 0.01",
+        help="Minimum difference between finetuned model and base to consider them different enough to extract, float, (0-1). Default = 0.01",
     )
     parser.add_argument(
         "--no_metadata",

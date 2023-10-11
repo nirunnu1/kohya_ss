@@ -9,6 +9,13 @@ import random
 from einops import repeat
 import numpy as np
 import torch
+try:
+    import intel_extension_for_pytorch as ipex
+    if torch.xpu.is_available():
+        from library.ipex import ipex_init
+        ipex_init()
+except Exception:
+    pass
 from tqdm import tqdm
 from transformers import CLIPTokenizer
 from diffusers import EulerDiscreteScheduler
@@ -94,7 +101,7 @@ if __name__ == "__main__":
         type=str,
         nargs="*",
         default=[],
-        help="LoRA weights, only supports networks.lora, each arguement is a `path;multiplier` (semi-colon separated)",
+        help="LoRA weights, only supports networks.lora, each argument is a `path;multiplier` (semi-colon separated)",
     )
     parser.add_argument("--interactive", action="store_true")
     args = parser.parse_args()
